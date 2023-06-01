@@ -1,0 +1,10 @@
+/target
+**/*.rs.bk
+bin/
+pkg/
+wasm-pack.log
+.idea/
+.vscode/
+.DS_Store
+pac.json
+version.text

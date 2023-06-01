@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+      }
+      #root {
+        height: 100%;
+        margin: 0;
+      }
+      #decrypt_data {
+        width: 75%;
+      }
+    </style>
+  </head>
+
+  <script type="module">
+    import init, { async_time, encrypt, decrypt } from "../pkg/api_signature_wasm.js";
+    await init();
+    document.getElementById("async_time").addEventListener("click", async () => {
+      await async_time();
+    });
+
+    document.getElementById("encrypt").addEventListener("click", async () => {
+      const start = Date.now();
+      const sign = await encrypt("/api/report2/dalaran/004/norm/trend");
+      const end = Date.now();
+      console.log(sign);
+    });
+
+    document.getElementById("decrypt").addEventListener("click", async () => {
+      const decrypt_data = document.getElementById("decrypt_data").value;
+      const data = await decrypt(decrypt_data);
+      console.log(data.split('#'));
+    });
+  </script>
+
+  <body>
+    <div id="root">
+      <button id="async_time">同步时间</button>
+      <button id="encrypt">加密</button>
+      <br />
+      <input id="decrypt_data" placeholder="输入密文" />
+      <br />
+      <button id="decrypt">解密</button>
+    </div>
+  </body>
+</html>
