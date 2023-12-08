@@ -2,12 +2,11 @@
 target = "wasm32-unknown-unknown"
 
 [source.crates-io]
-registry = "https://github.com/rust-lang/crates.io-index"
-
-replace-with = 'rsproxy'
+replace-with = 'rsproxy-sparse'
 
 [source.rsproxy]
 registry = "https://rsproxy.cn/crates.io-index"
+
 [source.rsproxy-sparse]
 registry = "sparse+https://rsproxy.cn/index/"
 
