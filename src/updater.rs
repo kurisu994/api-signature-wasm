@@ -95,7 +95,7 @@ async fn get_origin_version() -> Result<String, JsValue> {
         Some(c) => {
             trace!("version data : {}", &c);
             if utils::is_number(&c) {
-                Ok(sha_vers_code(&c))
+                Ok(sha_ver_code(&c))
             } else {
                 Err(JsValue::from_str("version is invalid"))
             }
@@ -121,9 +121,9 @@ fn get_version_url(window: &Window) -> Result<String, JsValue> {
 }
 
 async fn get_version_code(url: String, window: Window) -> Result<JsValue, JsValue> {
-    let mut opts = RequestInit::new();
-    opts.method("GET");
-    opts.mode(RequestMode::Cors);
+    let opts = RequestInit::new();
+    opts.set_method("GET");
+    opts.set_mode(RequestMode::Cors);
     let request = Request::new_with_str_and_init(&url, &opts)?;
     let resp_value = JsFuture::from(window.fetch_with_request(&request)).await?;
 
@@ -136,7 +136,7 @@ async fn get_version_code(url: String, window: Window) -> Result<JsValue, JsValu
     Err(JsValue::from_str(&err_msg))
 }
 
-fn sha_vers_code(version: &str) -> String {
+fn sha_ver_code(version: &str) -> String {
     let mut hasher = Sha3_256::new();
     hasher.update(version.as_bytes());
     let result = hasher.finalize();
