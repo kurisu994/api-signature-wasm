@@ -175,9 +175,9 @@ fn get_url() -> Result<String, JsValue> {
 }
 
 async fn get_server_time(url: &str, window: &Window) -> Result<i64, JsValue> {
-    let mut opts = RequestInit::new();
-    opts.method("GET");
-    opts.mode(RequestMode::NoCors);
+    let opts = RequestInit::new();
+    opts.set_method("GET");
+    opts.set_mode(RequestMode::NoCors);
     let request = Request::new_with_str_and_init(&url, &opts)?;
     let resp_value = JsFuture::from(window.fetch_with_request(&request)).await?;
 
